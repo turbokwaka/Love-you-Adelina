@@ -1,62 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Love Message</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #FFEDFA;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love you Adelina</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            background: #80CBC4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    .container {
-      text-align: center;
-    }
+        .container {
+            text-align: center;
+        }
 
-    .btn {
-      background: #BE5985;
-      outline: none;
-      box-shadow: none;
-    }
+        .btn {
+            background: #FFB433;
+            outline: none;
+            box-shadow: none;
+            width: 250px;
+        }
 
-    .btn:hover {
-      background: #FFB8E0;
-    }
-  </style>
+        .btn:hover {
+            background: #fcc974;
+        }
+
+        h1 {
+            color: #FBF8EF;
+            font-family: "mononoki", monospace;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://cutegif.neocities.org/sanrio/purin/purin3.gif" class="mb-3">
-    <h1>Привіт, моя Аделіно 💖💖</h1>
-    <button id="loveBtn" class="btn mt-3">Замовити повідомлення</button>
-  </div>
+<div class="container">
+    <img src="https://cutegif.neocities.org/sanrio/purin/purin3.gif" class="mb-3" alt="">
+    <h1 id="typewriter">Привіт, моя Аделіно 💖💖</h1>
+    <button id="loveBtn" class="btn mt-3 animate__animated">Замовити повідомлення</button>
+</div>
 
-  <script>
-  document.getElementById('loveBtn').addEventListener('click', function() {
-    let message = "у тебе замовлення!!";
+<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+<script>
+    const app = document.getElementById('typewriter');
 
+    const typewriter = new Typewriter(app, {
+        loop: true,
+        delay: 75,
+    });
+
+    typewriter
+        .typeString('Привіт, моя Аделіно 💖💖')
+        .pauseFor(3000)
+        .deleteAll()
+        .typeString('Натисни кнопочку, і я напишу що кохаю тебе))')
+        .pauseFor(2000)
+        .deleteAll()
+        .typeString('Навіть коли ти далеко — я з тобою 💫')
+        .pauseFor(2500)
+        .deleteAll()
+        .typeString('Ти найкраще, що зі мною сталося 💞')
+        .pauseFor(2500)
+        .deleteAll()
+        .typeString('Просто натисни кнопку — і я поруч ❤️')
+        .pauseFor(3000)
+        .deleteAll()
+        .typeString('Люблю тебе, моя дівчинко 🥺✨')
+        .pauseFor(3000)
+        .start();
+
+</script>
+
+<script>
+    const btn = document.getElementById('loveBtn');
+    const message = "у тебе замовлення!!";
     const telegramUrl = 'https://api.telegram.org/bot7469827817:AAE6zDP-k1KlSHwqh645g2Yz_v0hIT1nvpo/sendMessage?chat_id=856763292&text=у тебе замовлення';
 
-    fetch(telegramUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Message sent successfully:', data);
-        alert('Message sent to Telegram!');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to send message.');
-      });
-  });
-  </script>
+    btn.addEventListener('click', async function () {
+        btn.classList.add('animate__tada');
 
-  <!-- Bootstrap Bundle with Popper (for interactive components) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        // button logic
+        fetch(telegramUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Message sent successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        btn.addEventListener('animationend', () => {
+            btn.classList.remove('animate__tada');
+        }, {once: true});
+
+        const oldTextContent = btn.textContent;
+        btn.textContent = "Відправлено!";
+
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        btn.textContent = oldTextContent;
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
