@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love you Adelina</title>
-    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <style>
+        @font-face {
+            font-family: 'Mononoki';
+            src: url('mononoki-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             background: #80CBC4;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            font-family: "Mononoki", monospace;
         }
 
         .container {
@@ -21,19 +30,23 @@
         }
 
         .btn {
-            background: #FFB433;
+            background-color: #FFB433;
             outline: none;
             box-shadow: none;
             width: 250px;
         }
 
         .btn:hover {
-            background: #fcc974;
+            background-color: #fcc974;
+        }
+
+        .btn:active {
+            background-color: #FFB433;
+            box-shadow: 0 5px rgba(0, 0, 0, 0.3);
         }
 
         h1 {
             color: #FBF8EF;
-            font-family: "mononoki", monospace;
         }
     </style>
 </head>
@@ -41,10 +54,13 @@
 <div class="container">
     <img src="https://cutegif.neocities.org/sanrio/purin/purin3.gif" class="mb-3" alt="">
     <h1 id="typewriter">Привіт, моя Аделіно 💖💖</h1>
-    <button id="loveBtn" class="btn mt-3 animate__animated">Замовити повідомлення</button>
+    <button id="loveBtn" class="btn btn-outline-light mt-3 animate__animated" type="submit">Замовити повідомлення
+    </button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
 <script>
     const app = document.getElementById('typewriter');
 
@@ -76,36 +92,33 @@
 </script>
 
 <script>
+    let isAnimating = false;
     const btn = document.getElementById('loveBtn');
-    const message = "у тебе замовлення!!";
     const telegramUrl = 'https://api.telegram.org/bot7469827817:AAE6zDP-k1KlSHwqh645g2Yz_v0hIT1nvpo/sendMessage?chat_id=856763292&text=у тебе замовлення';
 
-    btn.addEventListener('click', async function () {
+    btn.addEventListener('click', function () {
+        if (isAnimating) return; // Prevent multiple clicks while animating
+        isAnimating = true;
         btn.classList.add('animate__tada');
-
-        // button logic
-        fetch(telegramUrl)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Message sent successfully:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-        btn.addEventListener('animationend', () => {
-            btn.classList.remove('animate__tada');
-        }, {once: true});
-
-        const oldTextContent = btn.textContent;
         btn.textContent = "Відправлено!";
 
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
+            // When animation ends
+            btn.classList.remove('animate__tada');
+            btn.textContent = "Замовити повідомлення";
+            isAnimating = false;
 
-        btn.textContent = oldTextContent;
+            fetch(telegramUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Message sent successfully:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
     });
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</script>
 </body>
 </html>
