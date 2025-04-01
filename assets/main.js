@@ -42,6 +42,13 @@ checkbox.addEventListener('change', showInputField);
 btn.addEventListener('click', async () => {
     if (isAnimating) return;
 
+    isAnimating = true;
+
+    animateButton(btn);
+
+    await new Promise(res => setTimeout(res, 2000));
+    resetButton(btn);
+    
     if (checkbox.checked) {
         const message = input.value;
         console.log(message);
@@ -49,12 +56,6 @@ btn.addEventListener('click', async () => {
     } else {
         await sendMessage();
     }
-
-    isAnimating = true;
-
-    animateButton(btn);
-    await new Promise(res => setTimeout(res, 2000));
-    resetButton(btn);
 
     isAnimating = false;
 });
