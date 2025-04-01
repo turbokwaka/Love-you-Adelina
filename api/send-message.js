@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-    const TOKEN = process.env.TELEGRAM_TOKEN;
+    const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
     const CHAT_ID = process.env.CHAT_ID;
 
     const url = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=У тебе замовлення від Аделіни)`;
