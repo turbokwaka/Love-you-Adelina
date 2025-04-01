@@ -73,10 +73,10 @@
         .typeString('Привіт, моя Аделіно 💖💖')
         .pauseFor(3000)
         .deleteAll()
-        .typeString('Натисни кнопочку, і я напишу що кохаю тебе))')
+        .typeString('Натисни кнопочку, і я напишу, як сильно кохаю тебе🌸')
         .pauseFor(2000)
         .deleteAll()
-        .typeString('Навіть коли ти далеко — я з тобою 💫')
+        .typeString('Навіть коли ти далеко — я з тобою 💫🌷')
         .pauseFor(2500)
         .deleteAll()
         .typeString('Ти найкраще, що зі мною сталося 💞')
@@ -108,15 +108,14 @@
             btn.textContent = "Замовити повідомлення";
             isAnimating = false;
 
-            fetch(telegramUrl)
+            fetch('/api/send-message')
                 .then(response => response.json())
                 .then(data => {
                     console.log('Message sent successfully:', data);
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error sending message:', error);
                 });
-        });
     });
 
 </script>
