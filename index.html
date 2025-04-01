@@ -5,119 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love you Adelina</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-    <style>
-        @font-face {
-            font-family: 'Mononoki';
-            src: url('mononoki-Regular.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        body {
-            background: #80CBC4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: "Mononoki", monospace;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        .btn {
-            background-color: #FFB433;
-            outline: none;
-            box-shadow: none;
-            width: 250px;
-        }
-
-        .btn:hover {
-            background-color: #fcc974;
-        }
-
-        .btn:active {
-            background-color: #FFB433;
-            box-shadow: 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            color: #FBF8EF;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<div class="container">
-    <img src="https://cutegif.neocities.org/sanrio/purin/purin3.gif" class="mb-3" alt="">
+<div class="container text-center">
+    <img src="assets/purin3.gif" class="mb-3" alt="">
     <h1 id="typewriter">Привіт, моя Аделіно 💖💖</h1>
-    <button id="loveBtn" class="btn btn-outline-light mt-3 animate__animated" type="submit">Замовити повідомлення
-    </button>
+    <div class="d-inline-flex align-items-center gap-2">
+        <input add-notice-input type="text" class="form-control" placeholder="Enter your message">
+        <button data-love-button class="btn btn-outline-light animate__animated">Замовити повідомлення</button>
+    </div>
+
+    <div class="form-check d-flex justify-content-center align-items-center gap-2 mt-1">
+        <input add-notice-checkbox class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label">
+            додати записку
+        </label>
+    </div>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 
-<script>
-    const app = document.getElementById('typewriter');
+<script src="assets/typewriter.js" defer></script>
+<script src="assets/main.js" defer></script>
 
-    const typewriter = new Typewriter(app, {
-        loop: true,
-        delay: 75,
-    });
-
-    typewriter
-        .typeString('Привіт, моя Аделіно 💖💖')
-        .pauseFor(3000)
-        .deleteAll()
-        .typeString('Натисни кнопочку, і я напишу, як сильно кохаю тебе🌸')
-        .pauseFor(2000)
-        .deleteAll()
-        .typeString('Навіть коли ти далеко — я з тобою 💫🌷')
-        .pauseFor(2500)
-        .deleteAll()
-        .typeString('Ти найкраще, що зі мною сталося 💞')
-        .pauseFor(2500)
-        .deleteAll()
-        .typeString('Просто натисни кнопку — і я поруч ❤️')
-        .pauseFor(3000)
-        .deleteAll()
-        .typeString('Люблю тебе, моя дівчинко 🥺✨')
-        .pauseFor(3000)
-        .start();
-
-</script>
-
-<script>
-    let isAnimating = false;
-    const btn = document.getElementById('loveBtn');
-
-    btn.addEventListener('click', function () {
-        if (isAnimating) return; // Prevent multiple clicks while animating
-        isAnimating = true;
-        btn.classList.add('animate__tada');
-        btn.textContent = "Відправлено!";
-
-        new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
-            // When animation ends
-            btn.classList.remove('animate__tada');
-            btn.textContent = "Замовити повідомлення";
-            isAnimating = false;
-
-            fetch('/api/send-message')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Message sent successfully:', data);
-                })
-                .catch(error => {
-                    console.error('Error sending message:', error);
-                });
-        })
-    })
-
-</script>
 </body>
 </html>
